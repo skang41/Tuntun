@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>튼튼이 맞이 준비 체크리스트</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FDF6EE;--blush:#F5E6D8;--sage:#A8BFA8;--sage-dark:#7A9E7A;
+  --dusty:#C9897A;--brown:#5C3D2E;--lgray:#F0EBE3;--text:#3D2B1F;--textl:#8A7468;
+  --owned:#2E8B6E;--newc:#A07830;--used:#3A6BC9;--rental:#7B4DB8;
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;padding-bottom:60px}
+
+header{background:linear-gradient(135deg,#F5E6D8,#E8D5C4);padding:32px 24px 24px;text-align:center;border-bottom:1px solid #E0CFC0;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(201,137,122,.12)}
+header::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(168,191,168,.15)}
+.hlabel{font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--dusty);margin-bottom:8px}
+header h1{font-size:24px;font-weight:700;color:var(--brown);margin-bottom:4px}
+header p{font-size:13px;color:var(--textl);font-weight:300}
+.dday-box{margin-top:12px;display:inline-block;background:rgba(92,61,46,.08);border-radius:99px;padding:6px 20px}
+.dday-num{font-size:22px;font-weight:700;color:var(--brown);letter-spacing:1px}
+
+.prog-wrap{background:var(--blush);padding:14px 20px;border-bottom:1px solid #E0CFC0;position:sticky;top:0;z-index:100}
+.prog-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.prog-label{font-size:12px;font-weight:500;color:var(--brown)}
+.prog-count{font-size:12px;color:var(--textl)}
+.prog-bar{height:6px;background:#E0CFC0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--dusty));border-radius:99px;transition:width .4s;width:0%}
+
+.main{padding:20px 16px;max-width:700px;margin:0 auto}
+
+.tip{background:linear-gradient(135deg,#F0F6F0,#E8F0E8);border-left:3px solid var(--sage);border-radius:10px;padding:12px 16px;margin-bottom:16px}
+.tip-title{font-size:12px;font-weight:700;color:var(--sage-dark);margin-bottom:6px}
+.tip-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px}
+.co{background:#D6F5EC;color:var(--owned)}
+.cn{background:#FFF3DC;color:var(--newc)}
+.cu{background:#E3EEFF;color:var(--used)}
+.cr{background:#F0E8FF;color:var(--rental)}
+
+.cat{background:white;border-radius:16px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 12px rgba(92,61,46,.06)}
+.cat-hd{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none;border-bottom:1px solid transparent;transition:background .2s}
+.cat-hd:hover{background:var(--cream)}
+.cat-hd.open{border-bottom-color:var(--lgray)}
+.cat-icon{font-size:20px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:var(--blush);border-radius:10px;flex-shrink:0}
+.cat-tw{flex:1}
+.cat-title{font-size:14px;font-weight:700;color:var(--brown);margin-bottom:1px}
+.cat-sub{font-size:11px;color:var(--textl)}
+.cat-badge{font-size:11px;font-weight:600;color:var(--textl);background:var(--lgray);border-radius:99px;padding:3px 10px;white-space:nowrap}
+.cat-badge.done{background:var(--sage);color:white}
+.cat-arrow{font-size:12px;color:var(--textl);transition:transform .2s;margin-left:4px}
+.cat-arrow.open{transform:rotate(180deg)}
+
+.ilist{display:none}
+.ilist.open{display:block}
+
+.col-hd{display:grid;grid-template-columns:20px 1fr 22px 22px 22px 22px 140px;gap:8px;align-items:center;padding:7px 14px;background:#FAFAF7;border-bottom:1px solid var(--lgray)}
+.col-hd span{font-size:10px;font-weight:700;color:var(--textl);text-align:center;letter-spacing:.5px}
+.col-hd .cname{text-align:left}
+
+.irow{display:grid;grid-template-columns:20px 1fr 22px 22px 22px 22px 140px;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--lgray);transition:background .15s}
+.irow:last-child{border-bottom:none}
+.irow:hover{background:#FDFAF6}
+
+.mcb{display:none}
+.mbox{width:18px;height:18px;border:2px solid #D4C5B8;border-radius:5px;display:flex;align-items:center;justify-content:center;transition:all .2s;background:white;cursor:pointer;flex-shrink:0}
+.mcb:checked+.mbox{background:var(--sage-dark);border-color:var(--sage-dark)}
+.mcb:checked+.mbox::after{content:'✓';color:white;font-size:11px;font-weight:700}
+
+.iname{font-size:13px;font-weight:500;color:var(--text);line-height:1.4}
+.iname.done{color:var(--textl);text-decoration:line-through;text-decoration-color:var(--sage)}
+.inote{font-size:10px;color:var(--textl);margin-top:1px;font-weight:300;line-height:1.4}
+.tag{display:inline-block;font-size:9px;font-weight:700;padding:1px 5px;border-radius:99px;margin-left:4px;vertical-align:middle}
+.tm{background:#FFE8E4;color:var(--dusty)}
+.tr{background:#E8F0E8;color:var(--sage-dark)}
+.tn{background:#FFF3DC;color:var(--newc)}
+
+.scb{display:none}
+.sbox{width:18px;height:18px;border:2px solid #D4C5B8;border-radius:5px;display:flex;align-items:center;justify-content:center;transition:all .2s;background:white;cursor:pointer}
+.scb.to:checked+.sbox{background:var(--owned);border-color:var(--owned)}
+.scb.tn2:checked+.sbox{background:var(--newc);border-color:var(--newc)}
+.scb.tu:checked+.sbox{background:var(--used);border-color:var(--used)}
+.scb.tre:checked+.sbox{background:var(--rental);border-color:var(--rental)}
+.scb:checked+.sbox::after{content:'✓';color:white;font-size:10px;font-weight:700}
+.sdis{opacity:.25;pointer-events:none}
+
+.binput{font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--text);background:#F7F3EE;border:1.5px solid #E0CFC0;border-radius:7px;padding:5px 9px;width:100%;outline:none;transition:border .2s,background .2s}
+.binput:focus{border-color:var(--dusty);background:white}
+.binput::placeholder{color:#C4B4A8;font-size:11px}
+
+.reset-btn{display:block;margin:24px auto 0;padding:10px 28px;background:transparent;border:1.5px solid #D4C5B8;border-radius:99px;font-family:'Noto Sans KR',sans-serif;font-size:13px;color:var(--textl);cursor:pointer;transition:all .2s}
+.reset-btn:hover{border-color:var(--dusty);color:var(--dusty)}
+
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(40,40,40,.88);color:white;font-size:12px;font-weight:500;padding:8px 20px;border-radius:99px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:999;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+label{display:flex;align-items:center;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <div class="hlabel">D-Day Checklist</div>
+  <h1>🌿 튼튼이 맞이 준비</h1>
+  <p>2026년 9월 29일 제왕절개 예정 · 셋째</p>
+  <div class="dday-box"><span class="dday-num" id="ddayNum">D-</span></div>
+</header>
+
+<div class="prog-wrap">
+  <div class="prog-info">
+    <span class="prog-label">전체 준비 현황</span>
+    <span class="prog-count" id="progCount">0 / 0 완료</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+</div>
+
+<div class="main">
+  <div class="tip">
+    <div class="tip-title">💡 구매 방식 &amp; 제품 기록</div>
+    <div class="tip-chips">
+      <span class="chip co">보유</span>
+      <span class="chip cn">신규</span>
+      <span class="chip cu">중고</span>
+      <span class="chip cr">렌탈</span>
+      <span style="font-size:11px;color:var(--textl)">중 선택 후 제품명/브랜드를 메모하세요</span>
+    </div>
+  </div>
+  <div id="app"></div>
+  <button class="reset-btn" onclick="resetAll()">전체 초기화</button>
+</div>
+<div id="toast">✓ 저장되었습니다</div>
+
+<script>
+var CATS = [
+  {icon:"🍼",title:"수유",sub:"모유 / 분유 공통 준비",items:[
+    {n:"수유 브라",m:"2~3개 / 출산 후 사이즈 변화 고려",t:"m",r:false},
+    {n:"모유패드",m:"일회용 or 면패드 / 초기 넉넉히",t:"m",r:false},
+    {n:"유축기",m:"위생 파츠(밸브·깔대기) 교체 확인",t:"re",r:true},
+    {n:"젖병 (160ml 소형) 2~3개",m:"젖꼭지 함께 교체 권장",t:"m",r:false},
+    {n:"젖병 세정제 + 솔",m:"신생아 전용 / 브러시 모 상태 확인",t:"m",r:false},
+    {n:"젖병 소독기",m:"스팀 소독기 상태 점검",t:"re",r:true},
+    {n:"분유 소캔 1개",m:"모유 수유 계획이라도 비상용 1캔",t:"ne",r:false},
+    {n:"젖병세척기",m:"자동 세척으로 위생 편리 / 렌탈 or 중고 가능",t:"ne",r:true},
+    {n:"분유포트",m:"정온 유지 기능 제품 권장 / 70°C 설정 가능한 것",t:"ne",r:true}
+  ]},
+  {icon:"😴",title:"수면 · 침구",sub:"아기 잠자리 환경",items:[
+    {n:"아기 침대 / 범퍼침대",m:"매트리스 꺼짐·변형 / 범퍼 오염 확인",t:"re",r:true},
+    {n:"신생아 이불 세트",m:"세탁 후 확인 / 9월 말 얇은 것 위주",t:"re",r:false},
+    {n:"속싸개 3~4장",m:"모로반사 억제 필수템 / 새로 구매 권장",t:"m",r:false},
+    {n:"겉싸개 1~2장",m:"환절기 체온 관리용",t:"re",r:false},
+    {n:"방수 요 / 방수 커버",m:"오염·변형 상태 확인",t:"re",r:false},
+    {n:"스와들업",m:"팔 올린 형태 / 모로반사 억제력 강함 / 셋째라 집 소음 많은 경우 특히 유용",t:"ne",r:false}
+  ]},
+  {icon:"👕",title:"의류",sub:"9월 말 환절기 기준",items:[
+    {n:"배냇저고리 5~7장",m:"신생아 전용 / 위생상 새로 구매 권장",t:"m",r:false},
+    {n:"우주복 50·60사이즈 3~5장",m:"긴팔 위주 / 얇은 면 소재",t:"re",r:false},
+    {n:"손발싸개",m:"신생아 얼굴 스크래치 방지",t:"re",r:false},
+    {n:"신생아 모자",m:"면 소재 / 체온 보호",t:"re",r:false},
+    {n:"얇은 카디건 or 조끼 2장",m:"10월 이후 기온 하강 대비",t:"ne",r:false}
+  ]},
+  {icon:"🛁",title:"목욕 · 위생",sub:"배꼽 소독 포함",items:[
+    {n:"아기 욕조",m:"미끄럼 방지 패드 상태 확인",t:"re",r:false},
+    {n:"신생아 전용 바디워시/샴푸",m:"유통기한 확인 / 개봉 후 6개월 내 사용",t:"m",r:false},
+    {n:"아기 수건 3~4장",m:"위생상 새로 구매 권장 / 후드 타올 포함",t:"m",r:false},
+    {n:"신생아용 면봉",m:"일반보다 가늘고 부드러운 것",t:"m",r:false},
+    {n:"아기 손톱가위 / 손톱줄",m:"소독 후 재사용 / 날 무딘 경우 교체",t:"re",r:false},
+    {n:"배꼽 소독 용품",m:"포비돈 or 병원 처방 / 매일 소독",t:"m",r:false},
+    {n:"기저귀 크림 (라쉬가드)",m:"유통기한 확인 / 새 제품 권장",t:"m",r:false},
+    {n:"신생아 체온계",m:"귀 체온계 배터리 교체",t:"re",r:false},
+    {n:"아기 로션 / 보습제",m:"신생아 피부 건조 심한 시기 / 목욕 후 바로 도포",t:"m",r:false},
+    {n:"목욕 온도계",m:"욕조 수온 체크용 (적정 38°C 내외)",t:"ne",r:false}
+  ]},
+  {icon:"🚼",title:"기저귀 · 교환",sub:"소모품 비축",items:[
+    {n:"신생아 기저귀 1~2팩",m:"브랜드 테스트 먼저 / 확인 후 대량 구매",t:"m",r:false},
+    {n:"물티슈 (순한 것, 무향)",m:"신생아용 / 99% 정제수 성분 권장",t:"m",r:false},
+    {n:"기저귀 교환대 or 방수매트",m:"방수 커버 세탁 상태 확인",t:"re",r:false},
+    {n:"기저귀 전용 쓰레기통",m:"탈취 필름 교체 여부 확인",t:"re",r:false},
+    {n:"휴대용 기저귀 교환 매트",m:"외출 시 필수 / 접이식 방수 타입 권장",t:"ne",r:false},
+    {n:"기저귀 가방",m:"상태 점검 후 재사용 or 신규 / 수납 구획 확인",t:"re",r:false}
+  ]},
+  {icon:"🚗",title:"외출 · 이동",sub:"퇴원 당일부터 필요",items:[
+    {n:"신생아 카시트",m:"퇴원 당일 필수 / 제조일 6년 이내 권장",t:"m",r:true},
+    {n:"유모차",m:"신생아 완전 눕기 확인 / 바퀴·벨트 점검",t:"re",r:true},
+    {n:"아기띠 / 슬링",m:"제왕절개 후 초기엔 남편 위주로 사용",t:"re",r:false}
+  ]},
+  {icon:"💊",title:"의료 · 응급",sub:"집에 구비할 것들",items:[
+    {n:"신생아 콧물흡입기",m:"환절기 필수 / 실리콘 파츠 교체 확인",t:"re",r:false},
+    {n:"영아용 해열제",m:"타이레놀 계열 / 유통기한 확인 후 신규 구매",t:"m",r:false},
+    {n:"소아청소년과 미리 확인",m:"위치·진료시간 파악 / 주말 진료 여부",t:"ne",r:false}
+  ]},
+  {icon:"🏥",title:"산모 준비 (제왕절개)",sub:"입원 + 퇴원 후 회복",items:[
+    {n:"입원 준비물 (산모 세면·위생)",m:"자연분만보다 입원 기간 길어 5~7일치",t:"",r:false},
+    {n:"압박 스타킹",m:"수술 후 혈전 예방 / 입원 중 필수에 가까움",t:"m",r:false},
+    {n:"산후복대",m:"제왕절개 전용 / 수술 부위 보호·지지",t:"ne",r:false},
+    {n:"산후조리원 예약 확인",m:"퇴원일 기준 입소 일정 재확인",t:"m",r:false},
+    {n:"산후도우미 일정 확인",m:"조리원 퇴소 이후 가정 내 공백 체크",t:"ne",r:false},
+    {n:"가족 독감 예방접종",m:"10월 시즌 전 / 형제들 포함 전 가족",t:"m",r:false}
+  ]}
+];
+
+function tagHTML(t) {
+  if (t === "m")  return '<span class="tag tm">필수</span>';
+  if (t === "re") return '<span class="tag tr">재사용</span>';
+  if (t === "ne") return '<span class="tag tn">신규검토</span>';
+  return '';
+}
+
+function build() {
+  var app = document.getElementById('app');
+  CATS.forEach(function(cat, ci) {
+    var catEl = document.createElement('div');
+    catEl.className = 'cat';
+
+    var hd = document.createElement('div');
+    hd.className = 'cat-hd' + (ci === 0 ? ' open' : '');
+    hd.setAttribute('onclick', 'toggleCat(this)');
+    hd.innerHTML =
+      '<div class="cat-icon">' + cat.icon + '</div>' +
+      '<div class="cat-tw"><div class="cat-title">' + cat.title + '</div><div class="cat-sub">' + cat.sub + '</div></div>' +
+      '<span class="cat-badge" id="b' + ci + '">0/0</span>' +
+      '<span class="cat-arrow' + (ci === 0 ? ' open' : '') + '">▾</span>';
+    catEl.appendChild(hd);
+
+    var list = document.createElement('div');
+    list.className = 'ilist' + (ci === 0 ? ' open' : '');
+
+    var colHd = document.createElement('div');
+    colHd.className = 'col-hd';
+    colHd.innerHTML =
+      '<span></span>' +
+      '<span class="cname">항목</span>' +
+      '<span style="color:var(--owned)">보유</span>' +
+      '<span style="color:var(--newc)">신규</span>' +
+      '<span style="color:var(--used)">중고</span>' +
+      '<span style="color:var(--rental)">렌탈</span>' +
+      '<span>제품명 / 브랜드</span>';
+    list.appendChild(colHd);
+
+    cat.items.forEach(function(item, ii) {
+      var id = 'c' + ci + 'i' + ii;
+      var rentalEl = item.r
+        ? '<label><input type="checkbox" class="scb tre" id="' + id + '-r" onchange="sc()"><span class="sbox"></span></label>'
+        : '<span class="sbox sdis"></span>';
+
+      var row = document.createElement('div');
+      row.className = 'irow';
+      row.innerHTML =
+        '<label><input type="checkbox" class="mcb" id="' + id + '" onchange="mc(\'' + id + '\')"><span class="mbox"></span></label>' +
+        '<div><div class="iname" id="n' + id + '">' + item.n + tagHTML(item.t) + '</div><div class="inote">' + item.m + '</div></div>' +
+        '<label><input type="checkbox" class="scb to" id="' + id + '-o" onchange="sc()"><span class="sbox"></span></label>' +
+        '<label><input type="checkbox" class="scb tn2" id="' + id + '-n" onchange="sc()"><span class="sbox"></span></label>' +
+        '<label><input type="checkbox" class="scb tu" id="' + id + '-u" onchange="sc()"><span class="sbox"></span></label>' +
+        rentalEl +
+        '<input type="text" class="binput" placeholder="브랜드 / 제품명" oninput="save()">';
+      list.appendChild(row);
+    });
+
+    catEl.appendChild(list);
+    app.appendChild(catEl);
+  });
+  updateProg();
+}
+
+function toggleCat(hd) {
+  hd.classList.toggle('open');
+  hd.querySelector('.cat-arrow').classList.toggle('open');
+  hd.nextElementSibling.classList.toggle('open');
+}
+
+function mc(id) {
+  var cb = document.getElementById(id);
+  var nm = document.getElementById('n' + id);
+  if (cb.checked) {
+    nm.classList.add('done');
+  } else {
+    nm.classList.remove('done');
+    ['o','n','u','r'].forEach(function(s) {
+      var el = document.getElementById(id + '-' + s);
+      if (el) el.checked = false;
+    });
+  }
+  save();
+  updateProg();
+}
+
+function sc() { save(); updateProg(); }
+
+function updateProg() {
+  var all = document.querySelectorAll('.mcb');
+  var done = document.querySelectorAll('.mcb:checked');
+  document.getElementById('progCount').textContent = done.length + ' / ' + all.length + ' 완료';
+  document.getElementById('progFill').style.width = all.length > 0 ? (done.length / all.length * 100) + '%' : '0%';
+  document.querySelectorAll('.ilist').forEach(function(list, i) {
+    var t = list.querySelectorAll('.mcb').length;
+    var d = list.querySelectorAll('.mcb:checked').length;
+    var b = document.getElementById('b' + i);
+    if (b) { b.textContent = d + '/' + t; b.classList.toggle('done', d === t && t > 0); }
+  });
+}
+
+function save() {
+  try {
+    var state = {};
+    document.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
+      if (cb.id) state[cb.id] = cb.checked;
+    });
+    document.querySelectorAll('.binput').forEach(function(inp, i) {
+      state['br' + i] = inp.value;
+    });
+    localStorage.setItem('tuntun', JSON.stringify(state));
+    showToast();
+  } catch(e) {}
+}
+
+function load() {
+  try {
+    var raw = localStorage.getItem('tuntun');
+    if (!raw) return;
+    var state = JSON.parse(raw);
+    document.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
+      if (cb.id && state[cb.id] !== undefined) cb.checked = state[cb.id];
+    });
+    document.querySelectorAll('.binput').forEach(function(inp, i) {
+      if (state['br' + i] !== undefined) inp.value = state['br' + i];
+    });
+    document.querySelectorAll('.mcb:checked').forEach(function(cb) {
+      var nm = document.getElementById('n' + cb.id);
+      if (nm) nm.classList.add('done');
+    });
+  } catch(e) {}
+}
+
+function showToast() {
+  try {
+    var t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(t._t);
+    t._t = setTimeout(function() { t.classList.remove('show'); }, 1800);
+  } catch(e) {}
+}
+
+function resetAll() {
+  if (!confirm('모든 체크와 입력 내용을 초기화할까요?')) return;
+  document.querySelectorAll('input[type=checkbox]').forEach(function(cb) { cb.checked = false; });
+  document.querySelectorAll('.binput').forEach(function(inp) { inp.value = ''; });
+  document.querySelectorAll('.iname').forEach(function(el) { el.classList.remove('done'); });
+  try { localStorage.removeItem('tuntun'); } catch(e) {}
+  updateProg();
+}
+
+// D-Day
+(function() {
+  var target = new Date('2026-09-29');
+  var today = new Date();
+  today.setHours(0,0,0,0);
+  target.setHours(0,0,0,0);
+  var diff = Math.round((target - today) / 86400000);
+  var el = document.getElementById('ddayNum');
+  if (diff > 0) el.textContent = 'D-' + diff;
+  else if (diff === 0) el.textContent = 'D-Day 🎉';
+  else el.textContent = 'D+' + Math.abs(diff);
+})();
+
+build();
+load();
+updateProg();
+</script>
+</body>
+</html>
